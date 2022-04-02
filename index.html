@@ -21,6 +21,8 @@
 		<style>
 			body {
 				background-color: #D3E8CD;
+				min-width: 1440px;
+				max-width: 1440px;
 			}
 			
 			#haha {
@@ -112,6 +114,22 @@
 
 		<script>
 			var board = [
+				[false, false, false, false, false, false, false, false, false, false, false, false, false],
+                [false, true, true, true, true, true, true, true, true, true, true, true, false],
+                [false, true, true, true, true, true, true, true, true, true, true, true, false],
+                [false, true, true, true, true, true, true, true, true, true, true, true, false],
+                [false, true, true, true, true, true, true, true, true, true, true, true, false],
+                [false, true, true, true, true, true, true, true, true, true, true, true, false],
+                [false, true, true, true, true, true, true, true, true, true, true, true, false],
+                [false, true, true, true, true, true, true, true, true, true, true, true, false],
+                [false, true, true, true, true, true, true, true, true, true, true, true, false],
+                [false, true, true, true, true, true, true, true, true, true, true, true, false],
+                [false, true, true, true, true, true, true, true, true, true, true, true, false],
+                [false, true, true, true, true, true, true, true, true, true, true, true, false],
+				[false, false, false, false, false, false, false, false, false, false, false, false, false]
+            ];
+
+			var iboard = [
 				[false, false, false, false, false, false, false, false, false, false, false, false, false],
                 [false, true, true, true, true, true, true, true, true, true, true, true, false],
                 [false, true, true, true, true, true, true, true, true, true, true, true, false],
@@ -399,6 +417,7 @@
 			var play = true;
 
 			function frogM(x,y) {
+				iboard[frogx][frogy] = false;
 				fboard[frogx][frogy] = false;
 				for (var i = 1;i <= 6;i++) {
 					var ret = frogDir(i);
@@ -417,6 +436,7 @@
 			}
 
 			function frogCheck() {
+				var iret = [0];
 				var fret = [0];
 				var ret = [0];
 				for (var i = 1; i <= 6; i++) {
@@ -424,16 +444,22 @@
 					if (board[cords[0]][cords[1]] == true) {
 						ret[0]++;
 						ret.push(i);
-						if (fboard[cords[0]][cords[1]] == true) {
-							fret[0]++;
-							fret.push(i);
+						if (iboard[cords[0]][cords[1]] == true) {
+							iret[0]++;
+							iret.push(i);
+							if (fboard[cords[0]][cords[1]] == true) {
+								fret[0]++;
+								fret.push(i);
+							}
 						}
 					}
 				}
-				if (fret[0] == 0) {
-					return ret;
-				} else {
+				if (fret[0] != 0) {
 					return fret;
+				} else if (iret[0] != 0) {
+					return iret;
+				} else {
+					return ret;
 				}
 			}
 
@@ -563,6 +589,9 @@
 						if (board[x][y] == false) {
 							document.getElementById("pad" + numltr(y) + numltr(x)).src = "lilypad.png";
 							board[x][y] = true;
+						}
+						if (iboard[x][y] == false) {
+							iboard[x][y] = true;
 						}
 						if (fboard[x][y] == false) {
 							fboard[x][y] = true;

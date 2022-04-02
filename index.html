@@ -107,7 +107,7 @@
 				color: white; 
 				background-color:#98AB97;
 			}
-			 
+
 		</style>
 
 		<script>
@@ -400,6 +400,12 @@
 
 			function frogM(x,y) {
 				fboard[frogx][frogy] = false;
+				for (var i = 1;i <= 6;i++) {
+					var ret = frogDir(i);
+					if (fboard[ret[0]][ret[1]] == true) {
+						fboard[ret[0]][ret[1]] = false;
+					}
+				}
 				frogx = x;
 				frogy = y;
 				if (y % 2 == 0) {
